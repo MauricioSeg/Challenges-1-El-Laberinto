@@ -1,25 +1,29 @@
 import random
 import time
 
-# Tamaño de la matrix (Tablero) y configuraciones basicas del juego 
+# Definimos la cantidad de filas y columnas que tendra el tablero (Matrix)
+# Tambien asignamos la cantidad de turnos a jugarse y la profundidad (turnos a futuro) que tendra en cuenta nuesta IA
 filas = 5
 columnas = 5
-turnos_maximos = 20
+turnos_maximos = 10
 profundidad = 3
 
-# Funcion para generar ubicaciones random para el gato y el raton
+# Creamos nuestro tablero(Matrix) con una listas de listas, en donde va almacenando las filas y luego las columnas y las almacenas
+# Como coordenas (0,1) (1,1) Asi sucesivamente, donde cada celda del tablero es una coordenada
+# Luego le pedimos a random.sample que elija 2 posiciones de "todas_las_posiciones" y el .sample garantiza que las ubicaciones sean distintas
 def generar_posiciones():
     todas_las_posiciones = [[fila, col]
-                            for fila in range(filas)
-                            for col in range(columnas)]
+    for fila in range(filas)
+    for col in range(columnas)]
     
     pos_inicial = random.sample(todas_las_posiciones, 2)
     return pos_inicial[0], pos_inicial[1]
 
 
-# Muestra el tablero en consola con los personajes
+# Con esta funcion, busacamos mostrar la ubicacion del gato, raton y el turno
+# imprimimos el numero del turno
 def mostrar_tablero(gato, raton, turno): 
-    print(f"\n--- Turno {turno} ---") 
+    print(f"Turno {turno}") 
     for fila in range(filas):
         linea = "  "
         for col in range(columnas):
@@ -36,13 +40,13 @@ def mostrar_tablero(gato, raton, turno):
 
 
 # Compara si dos posiciones son iguales 
-def misma_posicion(a, b):
-    return a[0] == b[0] and a[1] == b[1]
+def misma_posicion(pos_1, pos_2):
+    return pos_1[0] == pos_2[0] and pos_1[1] == pos_2[1]
 
 
 # Calcula la distancia entre dos posiciones
-def calcular_distancia(a, b):
-    return abs(a[0] - b[0]) + abs(a[1] - b[1])
+def calcular_distancia(pos_1, pos_2):
+    return abs(pos_1[0] - pos_2[0]) + abs(pos_1[1] - pos_2[1])
 
 
 # Devuelve los movimientos posibles desde una posicion
